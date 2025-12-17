@@ -7,8 +7,7 @@ import (
 
 type DocumentRepository interface {
 	FindAll() ([]model.Document, error)
-	FindByID(id uint) (*model.Document, error)
-	Update(doc *model.Document) error
+	BulkUpdate(ids []uint, status string, reason string) (int64, error)
 }
 
 type documentRepository struct {
@@ -16,7 +15,7 @@ type documentRepository struct {
 }
 
 func NewDocumentRepository(db *gorm.DB) DocumentRepository {
-	return &documentRepository{db}
+	return &documentRepository{db: db}
 }
 
 func (r *documentRepository) FindAll() ([]model.Document, error) {
@@ -25,15 +24,18 @@ func (r *documentRepository) FindAll() ([]model.Document, error) {
 	return docs, err
 }
 
-func (r *documentRepository) FindByID(id uint) (*model.Document, error) {
-	var doc model.Document
-	err := r.db.First(&doc, id).Error
-	if err != nil {
-		return nil, err
-	}
-	return &doc, nil
-}
+func (r *documentRepository) BulkUpdate(
+	ids []uint,
+	status string,
+	reason string,
+) (int64, error) {
 
-func (r *documentRepository) Update(doc *model.Document) error {
-	return r.db.Save(doc).Error
+	result := r.db.Model(&model.Document{}).
+		Where("id IN ? AND status = ?", ids, "pending").
+		Updates(map[string]interface{}{
+			"status": status,
+			"reason": reason,
+		})
+
+	return result.RowsAffected, result.Error
 }
