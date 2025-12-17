@@ -8,7 +8,7 @@ import (
 	"approval-system/internal/router"
 	"approval-system/internal/service"
 	"fmt"
-    "log"
+	"log"
 )
 
 func main() {
@@ -20,15 +20,13 @@ func main() {
 
 	if count == 0 {
 		for i := 1; i <= 20; i++ {
-			doc := model.Document{
-				Title:     fmt.Sprintf("รายการที่ %d", i),
-				Requester: fmt.Sprintf("ผู้ขอ %d", i),
-				Status:    "pending", // ค่าเริ่มต้น = รออนุมัติ
-				Remark:    "",
-			}
-			db.Create(&doc)
+			db.Create(&model.Document{
+				Title:  fmt.Sprintf("รายการที่ %d", i),
+				Status: "pending",
+				Reason: "",
+			})
 		}
-		log.Println("Seed mock data: 20 documents created")
+		log.Println("Seeded 20 mock documents")
 	}
 
 	// setup layers
