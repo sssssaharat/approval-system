@@ -267,12 +267,12 @@ export default function DocumentTable({
             >
               ก่อนหน้า
             </button>
-            <div className="flex gap-1 overflow-x-auto max-w-[200px] sm:max-w-none">
+            <div className="flex gap-1 overflow-x-auto max-w-50 sm:max-w-none">
                {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
                  <button
                    key={page}
                    onClick={() => setCurrentPage(page)}
-                   className={`w-8 h-8 flex-shrink-0 flex items-center justify-center rounded text-sm ${
+                   className={`w-8 h-8 shrink-0 flex items-center justify-center rounded text-sm ${
                      currentPage === page 
                        ? 'bg-blue-600 text-white' 
                        : 'bg-white border hover:bg-gray-100'

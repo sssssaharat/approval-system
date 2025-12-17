@@ -34,7 +34,7 @@ export default function ActionModal({
 
       setReason("");
       onSuccess();
-    } catch (err) {
+    } catch {
       alert("เกิดข้อผิดพลาด กรุณาลองใหม่");
     } finally {
       setLoading(false);
