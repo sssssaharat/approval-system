@@ -1,22 +1,23 @@
-const API_BASE = "http://localhost:8080/api";
+import axios from "axios";
 
-export async function getDocuments() {
-  const res = await fetch(`${API_BASE}/documents`);
-  return res.json();
-}
+const api = axios.create({
+  baseURL: "http://localhost:8080/api",
+});
 
-export async function approveDocument(id, remark) {
-  return fetch(`${API_BASE}/documents/${id}/approve`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ remark })
+export const fetchDocuments = () => {
+  return api.get("/documents");
+};
+
+export const bulkApprove = (ids, reason) => {
+  return api.put("/documents/approve", {
+    ids,
+    reason,
   });
-}
+};
 
-export async function rejectDocument(id, remark) {
-  return fetch(`${API_BASE}/documents/${id}/reject`, {
-    method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ remark })
+export const bulkReject = (ids, reason) => {
+  return api.put("/documents/reject", {
+    ids,
+    reason,
   });
-}
+};
