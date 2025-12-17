@@ -23,7 +23,7 @@ func main() {
 			db.Create(&model.Document{
 				Title:  fmt.Sprintf("รายการที่ %d", i),
 				Status: "pending",
-				Reason: "",
+				ActionReason: "",
 			})
 		}
 		log.Println("Seeded 20 mock documents")
