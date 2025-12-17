@@ -1,9 +1,5 @@
-import React, { useEffect, useState, useCallback } from "react";
-import {
-  getDocuments,
-  approveDocument,
-  rejectDocument,
-} from "../api/documentApi";
+import React, { useEffect, useState } from "react";
+import { getDocuments, approveDocument, rejectDocument } from "../api/documentApi";
 
 import DocumentTable from "../components/DocumentTable";
 import ModalApprove from "../components/ModalApprove";
@@ -18,24 +14,20 @@ export default function DocumentPage() {
 
   const [selected, setSelected] = useState(null);
 
-  const load = useCallback(async () => {
-    try {
-      setLoading(true);
-      const data = await getDocuments();
-      setDocs(data);
-    } catch (error) {
-      console.error("โหลดข้อมูลไม่สำเร็จ:", error);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
+  async function load() {
+    setLoading(true);
+    const data = await getDocuments();
+    setDocs(data);
+    setLoading(false);
+  }
 
   useEffect(() => {
     load();
-  }, [load]);
+  }, []);
 
   return (
     <div className="p-6">
+
       <h1 className="text-2xl font-bold">หน้า IT 03-1 (อนุมัติเอกสาร)</h1>
 
       {loading ? (
@@ -43,14 +35,8 @@ export default function DocumentPage() {
       ) : (
         <DocumentTable
           documents={docs}
-          openApprove={(doc) => {
-            setSelected(doc);
-            setApproveOpen(true);
-          }}
-          openReject={(doc) => {
-            setSelected(doc);
-            setRejectOpen(true);
-          }}
+          openApprove={(doc) => { setSelected(doc); setApproveOpen(true); }}
+          openReject={(doc) => { setSelected(doc); setRejectOpen(true); }}
         />
       )}
 
@@ -75,6 +61,7 @@ export default function DocumentPage() {
           load();
         }}
       />
+
     </div>
   );
 }
