@@ -1,11 +1,7 @@
-import DocumentPage from "./pages/DocumentPage";
+import IT03Page from "./pages/IT03Page";
 
 function App() {
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <DocumentPage />
-    </div>
-  );
+  return <IT03Page />;
 }
 
 export default App;
