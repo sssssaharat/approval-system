@@ -34,7 +34,7 @@ func (r *documentRepository) BulkUpdate(
 		Where("id IN ? AND status = ?", ids, "pending").
 		Updates(map[string]interface{}{
 			"status": status,
-			"reason": reason,
+			"action_reason": reason,
 		})
 
 	return result.RowsAffected, result.Error
