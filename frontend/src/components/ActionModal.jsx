@@ -3,7 +3,7 @@ import { bulkApprove, bulkReject } from "../api/documentApi";
 
 export default function ActionModal({
   open,
-  type, // "approve" | "reject"
+  type, 
   ids,
   onClose,
   onSuccess,

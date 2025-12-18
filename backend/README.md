@@ -52,4 +52,4 @@ Backend ส่วนนี้รับผิดชอบด้าน Business Lo
 
 ## การรันระบบ
 ```bash
-go run main.go
+go run ./cmd/server

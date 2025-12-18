@@ -1,14 +1,23 @@
-import { fetchDocuments } from '../../api/documentApi'
-import axios from 'axios'
 import { vi, test, expect } from 'vitest'
 
-vi.mock('axios')
+const mocks = vi.hoisted(() => ({
+  get: vi.fn().mockResolvedValue({ data: [] }),
+}))
+
+vi.mock('axios', () => {
+  return {
+    default: {
+      create: vi.fn(() => ({
+        get: mocks.get,
+      })),
+    },
+  }
+})
+
+import { fetchDocuments } from '../../api/documentApi'
 
 test('fetchDocuments calls correct endpoint', async () => {
-  axios.create.mockReturnThis()
-  axios.get.mockResolvedValue({ data: [] })
-
   await fetchDocuments()
 
-  expect(axios.get).toHaveBeenCalledWith('/documents')
+  expect(mocks.get).toHaveBeenCalledWith('/documents')
 })

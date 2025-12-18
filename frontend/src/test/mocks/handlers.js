@@ -1,21 +1,19 @@
-import { rest } from 'msw'
+import { http, HttpResponse, delay } from 'msw'
+
+const mockDocuments = [
+  { id: 101, title: 'เอกสารขอเบิกงบ (A)', status: 'pending' },
+  { id: 102, title: 'เอกสารลาพักร้อน (B)', status: 'approved' },
+  { id: 103, title: 'เอกสารจัดซื้อ (C)', status: 'rejected' },
+];
 
 export const handlers = [
-  rest.get('http://localhost:8080/api/documents', (_, res, ctx) => {
-    return res(
-      ctx.json([
-        { id: 1, title: 'Doc A', status: 'pending', action_reason: '' },
-        { id: 2, title: 'Doc B', status: 'approved', action_reason: 'ok' },
-        { id: 3, title: 'Doc C', status: 'rejected', action_reason: 'no' },
-      ])
-    )
+  http.get('*documents', async () => {
+    await delay(50)
+    return HttpResponse.json(mockDocuments) 
   }),
 
-  rest.put('http://localhost:8080/api/documents/approve', (_, res, ctx) => {
-    return res(ctx.json({ updated: 1 }))
-  }),
-
-  rest.put('http://localhost:8080/api/documents/reject', (_, res, ctx) => {
-    return res(ctx.json({ updated: 1 }))
+  http.post('*', async () => {
+    await delay(50)
+    return HttpResponse.json({ message: 'Success' })
   }),
 ]
