@@ -105,7 +105,7 @@ export default function DocumentTable({
                 : "bg-gray-300 text-gray-500 cursor-not-allowed"
             }`}
           >
-            อนุมัติที่เลือก
+            อนุมัติ
           </button>
 
           <button
@@ -117,7 +117,7 @@ export default function DocumentTable({
                 : "bg-gray-300 text-gray-500 cursor-not-allowed"
             }`}
           >
-            ไม่อนุมัติที่เลือก
+            ไม่อนุมัติ
           </button>
         </div>
 
