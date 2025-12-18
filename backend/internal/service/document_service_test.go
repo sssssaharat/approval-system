@@ -13,7 +13,6 @@ type MockRepo struct {
 	mock.Mock
 }
 
-// ✅ return type ต้องเป็น []model.Document
 func (m *MockRepo) FindAll() ([]model.Document, error) {
 	args := m.Called()
 	return args.Get(0).([]model.Document), args.Error(1)
@@ -25,7 +24,6 @@ func (m *MockRepo) BulkUpdate(ids []uint, status string, reason string) (int64, 
 }
 
 func TestBulkApprove_ShouldSendApprovedStatus(t *testing.T) {
-	// Arrange
 	repo := new(MockRepo)
 	var _ repository.DocumentRepository = repo // ✅ compile-time safety check
 
@@ -34,10 +32,8 @@ func TestBulkApprove_ShouldSendApprovedStatus(t *testing.T) {
 	repo.On("BulkUpdate", []uint{1}, "approved", "ok").
 		Return(int64(1), nil)
 
-	// Act
 	updated, err := service.BulkApprove([]uint{1}, "ok")
 
-	// Assert
 	assert.NoError(t, err)
 	assert.Equal(t, int64(1), updated)
 	repo.AssertExpectations(t)
