@@ -1,16 +1,54 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## frontend/README.md
 
-Currently, two official plugins are available:
+```md
+# Frontend – ระบบอนุมัติเอกสาร
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## วัตถุประสงค์
+Frontend ส่วนนี้รับผิดชอบการแสดงผลข้อมูล  
+และการควบคุมการทำงานตามขั้นตอนของผู้ใช้งาน (User Flow)
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## เทคโนโลยีที่ใช้
+- React
+- Vite
+- JavaScript (ไม่ใช้ TypeScript)
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## หน้าจอหลัก
+- หน้าแสดงรายการเอกสาร (IT-03-1)
+- Modal ยืนยันการอนุมัติ (IT-03-2)
+- Modal ยืนยันการไม่อนุมัติ (IT-03-3)
+
+---
+
+## ขั้นตอนการใช้งาน
+1. ผู้ใช้เปิดหน้าแสดงรายการเอกสาร
+2. เลือกเอกสารที่มีสถานะ “รออนุมัติ”
+3. กดปุ่ม “อนุมัติ” หรือ “ไม่อนุมัติ”
+4. กรอกเหตุผลใน Modal
+5. ยืนยันการดำเนินการ
+6. ระบบรีเฟรชข้อมูลอัตโนมัติ
+
+---
+
+## การควบคุมความถูกต้อง
+- ต้องกรอกเหตุผลก่อนยืนยัน
+- เอกสารที่อนุมัติแล้วไม่สามารถเลือกซ้ำ
+- ปุ่มอนุมัติถูกปิดเมื่อไม่มีรายการที่เลือก
+
+---
+
+## การทดสอบ
+- ใช้ Unit Test ตรวจสอบ Component และ User Flow
+- Mock API ด้วย MSW
+- ทดสอบกรณีปกติและกรณีผิดพลาด
+
+---
+
+## การรัน Frontend
+```bash
+npm install
+npm run dev
